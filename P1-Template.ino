@@ -1,23 +1,23 @@
 #include <ax12.h>
-
 #include "poses.h"
 #include "robot.h"
 #include <avr/interrupt.h> 
 #include <avr/io.h>
 
-/*******************************************
- *******************************************/
+
+// This function will only run once, after each powerup or reset of the Arduino board.
 void setup()
 {
   /* Init Robot */
   ROBOT_Init();
 
   /* Open serial port */
+  //Serial:used for communication between the Arduino board and a computer or other devices.
   Serial.begin(115200);
   delay (100);   
   Serial.println("###########################");    
   Serial.println("Serial Communication Established.");    
-  Serial.println("###########################");    
+  Serial.println("###########################"); 
   delay (2000);    //for stability on programming
   
   /* Start menu options */
