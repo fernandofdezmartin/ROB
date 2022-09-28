@@ -5,6 +5,8 @@
 #include <avr/io.h>
 
 
+
+
 // This function will only run once, after each powerup or reset of the Arduino board.
 void setup()
 {
@@ -16,7 +18,7 @@ void setup()
   Serial.begin(115200);
   delay (100);   
   Serial.println("###########################");    
-  Serial.println("Serial Communication Established.");    
+  Serial.println("Serial Communication Established. Robot Listo.");    
   Serial.println("###########################"); 
   delay (2000);    //for stability on programming
   
@@ -27,14 +29,18 @@ void setup()
 /*******************************************
  *******************************************/
 
+//Igual que el update de unity.
 void loop()
 {
   unsigned int  tmp[SERVOCOUNT-1];
   double        tmpJointAngles[DOFs];
   double        tmpCoords[3];
   
+  
+  
   for (int i = 0 ; i < SERVOCOUNT - 1; i++)
     tmp[i]=0;
+  
     
   if (Serial.available() > 0 )
   {
@@ -78,8 +84,6 @@ void loop()
       case 'B':
         Check();
         break;
-      case 'C':
-        PruebaSolucion();
       break;
     }
 
@@ -216,66 +220,28 @@ void P1Solution ( void )
   double fIncQ      = 0.01;
   uint16_t unSteps  = 100;
   uint8_t i, j;
+
+  
   ROBOT_GripperOpen();
   delay(500);
   ROBOT_SetSingleTrajectory( m_fCoordRelax, 1000, CUBIC1 );
-  delay(2500);
+  delay(1500);
   ROBOT_SetSingleTrajectory( m_fCoordRelax1, 2000, CUBIC1 );
-  delay(2500);
-  ROBOT_GripperClose();
-  delay(1500);
-  ROBOT_SetDoubleTrajectory (m_fCoordRelax3, m_fCoordRelax2, 2000, 3000, CUBIC2);
-  delay(5000);
-  ROBOT_GripperOpen();
+  delay(500);
+  Positions(20);
   delay(1000);
-  ROBOT_SetSingleTrajectory( m_fCoordRelax, 2000, CUBIC1 );
-
-  ROBOT_GetJointsPos(tmpJointAngles);
-  Serial.print("Base: ");
-        Serial.println(tmpJointAngles[0]);
-        Serial.print("Shoulder: ");
-        Serial.println(tmpJointAngles[1]);
-        Serial.print("Elbow: ");
-        Serial.println(tmpJointAngles[2]);
-        Serial.print("Wrist: ");
-        Serial.println(tmpJointAngles[3]);
-        Serial.print("WristRot: ");
-        Serial.println(tmpJointAngles[4]);
-
-  /* Get a correct Position for testing all joints */
-  
-
-
-  /* ROBOT_SetSingleTrajectory( m_fCoordTest, 1000, LINEAR );
-  delay(1500);
-  Serial.print("POS 1"); */
-  /* dxlTorqueOnAll(); */
-
-
-  /* Check ALL JONTS but GRIPPER
-  for ( i = 0 ; i < 5 ; i++ )
-  {
-    for ( j = 0 ; j < unSteps ; j++ )
-    {
-      ROBOT_SetJointPos(i, m_fCoordTest[i] + (double) j * fIncQ );
-      delay(20);
-    }
-
-    for ( j = unSteps ; j > 0 ; j-- )
-    {
-      ROBOT_SetJointPos(i, m_fCoordTest[i] + (double) j * fIncQ );
-      delay(20);
-    }
-  }
-  
-
   ROBOT_GripperClose();
   delay(500);
-  ROBOT_GripperOpen();
+  ROBOT_SetDoubleTrajectory (m_fCoordRelax3, m_fCoordRelax2, 2000, 3000, CUBIC2);
   delay(500);
-  
- 
-  ROBOT_SetSingleTrajectory( m_fCoordRelax, 1000, LINEAR );*/
+  Positions(50);
+  delay(1500);
+  ROBOT_GripperOpen();
+  delay(400);
+  ROBOT_SetSingleTrajectory( m_fCoordRelax, 2000, CUBIC1 );
+  delay(500);
+  Positions(21);
+
 }
 void Check ( void )
 {
@@ -296,25 +262,18 @@ void Check ( void )
         Serial.print("WristRot: ");
         Serial.println(tmpJointAngles[4]);
 }
-void PruebaSolucion ( void )
+void Positions ( int b )
 {
   double        tmpJointAngles[DOFs];
-  /* START CODE TO BE IMPLEMENTED BY THE STUDENTS */
-  double fIncQ      = 0.01;
-  uint16_t unSteps  = 100;
-  delay(100);
-  ROBOT_GetJointsPos(tmpJointAngles);
-  Serial.print("Base: ");
-        Serial.println(tmpJointAngles[0]);
-        Serial.print("Shoulder: ");
-        Serial.println(tmpJointAngles[1]);
-        Serial.print("Elbow: ");
-        Serial.println(tmpJointAngles[2]);
-        Serial.print("Wrist: ");
-        Serial.println(tmpJointAngles[3]);
-        Serial.print("WristRot: ");
-        Serial.println(tmpJointAngles[4]);
+  uint8_t i;
+
+ for ( i = 0 ; i < b ; i++)
+  {
+    ROBOT_GetJointsPos(tmpJointAngles);
+    Serial.println(tmpJointAngles[0]);
+  }
 }
+
   /* END CODE TO BE IMPLEMENTED BY THE STUDENTS */
   
 

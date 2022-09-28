@@ -117,6 +117,7 @@ void ROBOT_SetTrajectoryType ( uint8_t u_trajectory )
 
 void ROBOT_SetSingleTrajectory ( double *f_pos, uint16_t un_time, uint8_t un_trajectory_type )
 {
+  double tmpJointAngles[DOFs];
   uint8_t i;
 
   while(m_bTimerOnFlag == TRUE)
@@ -132,6 +133,7 @@ void ROBOT_SetSingleTrajectory ( double *f_pos, uint16_t un_time, uint8_t un_tra
  
   for ( i = 0 ; i < DOFs ; i++)
   {
+    
     m_fTrajectoryFinalPos[i] = f_pos[i]; 
 
     if ( un_trajectory_type == LINEAR )
@@ -143,6 +145,9 @@ void ROBOT_SetSingleTrajectory ( double *f_pos, uint16_t un_time, uint8_t un_tra
 
   m_unTicksCount          = 0;
   m_unTimerExtraPrescaler = 0;
+
+
+  
   
   ROBOT_TimerStart();
 }

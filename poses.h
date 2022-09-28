@@ -29,8 +29,10 @@
 double m_fCoordRelax[]      = {0,2.89,-2.89,0,M_PI/2};
 double m_fCoordRelax1[]      = {0.13,1.61,-2.60,0.84,1.56};
 double m_fCoordRelax2[]      = {1.33,1.46,-1.50,-1.50,2.90};
-double m_fCoordRelax3[]      = {0.80,1.93,-1.62,-0.02,-0.06};
+double m_fCoordRelax3[]      = {0.67,1.64,-1.19,-0.36,0};
 double m_fCoordTest[]       = {0,M_PI/2,-M_PI/2,0,M_PI/2};
+
+
 
 /* Pulses in motors must be defined in bits (0-1024) as:
  * pulses = {M1, M2, M3, M4, M5, M6, M7}
