@@ -22,5 +22,5 @@
 ## Interesting related links
 
 - You can read the robot documentation here: [Robolabo-wiki](https://khan.github.io/KaTeX/)
-- You can check result video here: [Video-1](https://khan.github.io/KaTeX/)
+- You can check result video here: [Video-1](https://www.youtube.com/watch?v=ehaPpJ0dBO8)
 - You can check result trayectory video here: [Video-2](https://www.youtube.com/watch?v=AopuEs5fMSk)
