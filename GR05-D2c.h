@@ -1,7 +1,7 @@
 #ifndef _ROBOT_H
 #define _ROBOT_H_
 
-#include "servos.h"
+#include "GR05-D2d.h"
 
 
 /****************************************************

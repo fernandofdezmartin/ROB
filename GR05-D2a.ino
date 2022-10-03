@@ -1,6 +1,6 @@
 #include <ax12.h>
-#include "poses.h"
-#include "robot.h"
+#include "GR05-D2b.h"
+#include "GR05-D2c.h"
 #include <avr/interrupt.h> 
 #include <avr/io.h>
 
