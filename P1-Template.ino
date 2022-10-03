@@ -18,7 +18,7 @@ void setup()
   Serial.begin(115200);
   delay (100);   
   Serial.println("###########################");    
-  Serial.println("Serial Communication Established. Robot Listo.");    
+  Serial.println("Serial Communication Established. Robot Listo Para Usarse.");    
   Serial.println("###########################"); 
   delay (2000);    //for stability on programming
   
@@ -81,12 +81,8 @@ void loop()
       case 'A':
         P1Solution();
         break;
-      case 'B':
-        Check();
-        break;
       break;
     }
-
     /* Run menu options again */
     MenuOptions();
   }
@@ -106,9 +102,8 @@ void MenuOptions()
     Serial.println("4) Gripper Open");  
     Serial.println("5) TestAllJoints");  
     Serial.println("6) MoveSpecificJoint"); 
+    Serial.println("###########################"); 
     Serial.println("A) P1 Solution");  
-    Serial.println("B) Check");  
-    Serial.println("C) Trayectoria 2");  
     Serial.println("###########################"); 
 }
 
@@ -219,28 +214,72 @@ void P1Solution ( void )
   /* START CODE TO BE IMPLEMENTED BY THE STUDENTS */
   double fIncQ      = 0.01;
   uint16_t unSteps  = 100;
-  uint8_t i, j;
+  uint8_t i, j, a;
+
+  Serial.println("###########################"); 
+  Serial.println("Real-time data information"); 
+  Serial.println(""); 
+  Serial.println("q1: 1");
+  Serial.println("q2: 2");
+  Serial.println("q3: 3");
+  Serial.println("q4: 4");
+  Serial.println("q5: 5");
+  Serial.println("All: 6");
+  Serial.println("");
+  Serial.println("Real-time data to show?: ");
+  
+  while (Serial.available() <= 0 );
+  uint8_t selected = Serial.parseInt();
+
+  Serial.print("Data to show: ");
+  Serial.println(selected);
+  Serial.println("");
+
+  switch(selected)
+  {
+    case Q1:
+      a=1;
+      break;
+    case Q2:
+      a=2;
+      break;
+    case Q3:
+      a=3;
+      break;
+    case Q4:
+      a=4;
+      break;
+    case Q5:
+      a=5;
+      break;
+      case ALL:
+      a=6;
+      break;
+    default:
+      return -1;
+      break;
+  }
 
   
   ROBOT_GripperOpen();
-  delay(500);
+  delay(300);
   ROBOT_SetSingleTrajectory( m_fCoordRelax, 1000, CUBIC1 );
-  delay(1500);
-  ROBOT_SetSingleTrajectory( m_fCoordRelax1, 2000, CUBIC1 );
-  delay(500);
-  Positions(20);
-  delay(1000);
+  delay(1100);
+  ROBOT_SetSingleTrajectory( palo, 2000, CUBIC1 );
+  delay(200);
+  Positions(20,a);
+  delay(700);
   ROBOT_GripperClose();
   delay(500);
-  ROBOT_SetDoubleTrajectory (m_fCoordRelax3, m_fCoordRelax2, 2000, 3000, CUBIC2);
-  delay(500);
-  Positions(50);
+  ROBOT_SetDoubleTrajectory (intermedio, cubo, 2000, 2000, CUBIC2);
+  delay(200);
+  Positions(40,a);
   delay(1500);
   ROBOT_GripperOpen();
   delay(400);
   ROBOT_SetSingleTrajectory( m_fCoordRelax, 2000, CUBIC1 );
   delay(500);
-  Positions(21);
+  Positions(21,a);
 
 }
 void Check ( void )
@@ -262,7 +301,7 @@ void Check ( void )
         Serial.print("WristRot: ");
         Serial.println(tmpJointAngles[4]);
 }
-void Positions ( int b )
+void Positions ( int b,int a ) //Función que permite imprimir por pantalla los valores de q
 {
   double        tmpJointAngles[DOFs];
   uint8_t i;
@@ -270,7 +309,27 @@ void Positions ( int b )
  for ( i = 0 ; i < b ; i++)
   {
     ROBOT_GetJointsPos(tmpJointAngles);
-    Serial.println(tmpJointAngles[0]);
+    if(a==1){
+    Serial.println(tmpJointAngles[0]);}
+    else if(a==2){
+    Serial.println(tmpJointAngles[1]);}
+    else if(a==3){
+    Serial.println(tmpJointAngles[2]);}
+    else if(a==4){
+    Serial.println(tmpJointAngles[3]);}
+    else if(a==5){
+    Serial.println(tmpJointAngles[4]); }
+    else if(a==6){
+    Serial.print("q1: ");   
+    Serial.println(tmpJointAngles[0]); 
+    Serial.print("q2: "); 
+    Serial.println(tmpJointAngles[1]); 
+    Serial.print("q3: "); 
+    Serial.println(tmpJointAngles[2]); 
+    Serial.print("q4: "); 
+    Serial.println(tmpJointAngles[3]); 
+    Serial.print("q5: "); 
+    Serial.println(tmpJointAngles[4]); }
   }
 }
 

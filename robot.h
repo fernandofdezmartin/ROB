@@ -39,6 +39,13 @@
 #define WRIST_ROT 4
 #define GRIPPER   5
 
+#define Q1      1
+#define Q2      2
+#define Q3      3
+#define Q4      4
+#define Q5      5
+#define ALL     6
+
 /****************************************************
  ***************************************************/
 uint16_t m_unZeroPulses[SERVOCOUNT-1] = { 512, 255, 769, 257, 767,  660,  512};
