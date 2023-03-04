@@ -1,5 +1,5 @@
 # Control and Robotics in Medicine.
-## _Deliverable D2_
+## General info
 
 
 
